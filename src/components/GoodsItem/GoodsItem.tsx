@@ -4,7 +4,11 @@ import React from 'react';
 import './GoodsItem.css';
 import { IGoods } from '../../types/IGoods';
 
-const GoodsItem = ({ name, description, price, full_background }: Partial<IGoods>) => {
+interface IGoodsItemProps extends IGoods{
+  addToBastek: (item:IGoods) => void
+}
+
+const GoodsItem = ({ id, name, description, price, full_background, addToBastek }: IGoodsItemProps) => {
   return (
     <div className="card goods-card">
       <div className="card-image">
@@ -15,7 +19,10 @@ const GoodsItem = ({ name, description, price, full_background }: Partial<IGoods
         <p>{description}</p>
       </div>
       <div className="card-action">
-        <button className='btn'>Купить</button>
+        <button className='btn'
+          onClick={() => addToBastek({ id, name, price })}>
+          Купить
+        </button>
         <span className='right' style={{fontSize:'1.8rem'}}>{price} руб</span>
       </div>
     </div>
