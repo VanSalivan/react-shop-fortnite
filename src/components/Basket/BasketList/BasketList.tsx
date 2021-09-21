@@ -11,9 +11,10 @@ import { BasketItem } from '../BasketItem/BasketItem';
 interface IBasketListProps {
   order: IOrder[];
   handleBasketOpen: () => void;
+  removeFromBasket: (id?: string) => void;
 }
 
-const BasketList = ({ order, handleBasketOpen }: IBasketListProps) => {
+const BasketList = ({ order, handleBasketOpen, removeFromBasket }: IBasketListProps) => {
   const totalPrice = order.reduce((sum, currentItem) => {
     return sum + currentItem.price! * currentItem.quantity;
   }, 0);
@@ -27,7 +28,7 @@ const BasketList = ({ order, handleBasketOpen }: IBasketListProps) => {
         </span>
       </li>
       {order.length ? (
-        order.map((item) => <BasketItem key={item.id} {...item} />)
+        order.map((item) => <BasketItem key={item.id} {...item} removeFromBasket={removeFromBasket}/>)
       ) : (
         <li className='collection-item'>Корзина пуста</li>
       )}

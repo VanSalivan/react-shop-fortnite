@@ -44,6 +44,11 @@ const Shop = () => {
 
   const handleBasketOpen = () => setBasketOpen(!isBasketOpen);
 
+  const removeFromBasket = (itemId: string | undefined) => {
+    const newOrder = order.filter((item) => item.id !== itemId);
+    setOrder(newOrder);
+  }
+
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(API_URL, {
@@ -65,7 +70,11 @@ const Shop = () => {
       {loading ? <Spinner /> : <GoodsList goods={goods} addToBastek={addToBastek} />}
       {isBasketOpen &&
         <Modal>
-          <BasketList order={order} handleBasketOpen={handleBasketOpen} />
+          <BasketList
+            order={order}
+            handleBasketOpen={handleBasketOpen}
+            removeFromBasket={removeFromBasket}
+          />
         </Modal>}
     </main>
   );
