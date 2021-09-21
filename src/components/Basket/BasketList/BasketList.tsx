@@ -12,9 +12,11 @@ interface IBasketListProps {
   order: IOrder[];
   handleBasketOpen: () => void;
   removeFromBasket: (id?: string) => void;
+  inc: (itemId: string) => void;
+  dec: (itemId: string) => void
 }
 
-const BasketList = ({ order, handleBasketOpen, removeFromBasket }: IBasketListProps) => {
+const BasketList = ({ order, handleBasketOpen, removeFromBasket, inc, dec }: IBasketListProps) => {
   const totalPrice = order.reduce((sum, currentItem) => {
     return sum + currentItem.price! * currentItem.quantity;
   }, 0);
@@ -28,7 +30,9 @@ const BasketList = ({ order, handleBasketOpen, removeFromBasket }: IBasketListPr
         </span>
       </li>
       {order.length ? (
-        order.map((item) => <BasketItem key={item.id} {...item} removeFromBasket={removeFromBasket}/>)
+        order.map((item) => (
+          <BasketItem key={item.id} removeFromBasket={removeFromBasket} inc={inc} dec={dec} {...item} />
+        ))
       ) : (
         <li className='collection-item'>Корзина пуста</li>
       )}

@@ -49,6 +49,33 @@ const Shop = () => {
     setOrder(newOrder);
   }
 
+  const incQuantity = (itemId: string) => {
+    const newOrder = order.map((el) => {
+      if (el.id === itemId) {
+        const newQuantity = el.quantity + 1;
+        return { ...el, quantity: newQuantity }
+      } else {
+        return el;
+      }
+    });
+    setOrder(newOrder);
+  }
+
+  const decQuantity = (itemId: string) => {
+    const newOrder = order.map((el) => {
+      if (el.id === itemId) {
+        const newQuantity = el.quantity - 1;
+        return {
+          ...el,
+          quantity: newQuantity >= 0 ? newQuantity : 0
+        }
+      } else {
+        return el;
+      }
+    });
+    setOrder(newOrder);
+  }
+
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(API_URL, {
@@ -74,6 +101,8 @@ const Shop = () => {
             order={order}
             handleBasketOpen={handleBasketOpen}
             removeFromBasket={removeFromBasket}
+            inc={incQuantity}
+            dec={decQuantity}
           />
         </Modal>}
     </main>
