@@ -1,4 +1,4 @@
-## React Fortnite Shop # [demo](https://vansalivan.github.io/React__MOVIES-PROJECT/)
+## React Fortnite Shop # [demo](https://vansalivan.github.io/React__SHOP/)
 Тренировочный проект по технологиям React, TypeScript.
 
 ![Screenshot](example.png)
