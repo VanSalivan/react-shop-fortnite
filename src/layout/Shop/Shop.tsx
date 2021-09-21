@@ -13,6 +13,7 @@ import { API_KEY, API_URL } from '../../config';
 // Types
 import { IGoods, IOrder } from '../../types/IGoods';
 import BasketList from '../../components/Basket/BasketList';
+import Modal from '../../services/Modal';
 
 const Shop = () => {
   const [goods, setGoods] = useState<IGoods[]>([]);
@@ -62,7 +63,10 @@ const Shop = () => {
     <main className='container shop-content'>
       <Cart quantity={order.length} handleBasketOpen={handleBasketOpen} />
       {loading ? <Spinner /> : <GoodsList goods={goods} addToBastek={addToBastek} />}
-      {isBasketOpen && <BasketList order={order} handleBasketOpen={handleBasketOpen} />}
+      {isBasketOpen &&
+        <Modal>
+          <BasketList order={order} handleBasketOpen={handleBasketOpen} />
+        </Modal>}
     </main>
   );
 };
