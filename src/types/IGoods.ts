@@ -5,3 +5,7 @@ export interface IGoods {
   price?: number;
   full_background?: string;
 }
+
+export interface IOrder extends IGoods {
+  quantity: number;
+}

@@ -6,3 +6,13 @@
 .card-content {
   flex-grow: 1;
 }
+
+.card-image {
+  min-height: 311px;
+}
+
+.goods-card .card-image {
+  min-height: 311px;
+  background-image: url('https://www.epicgames.com/fortnite/ru/creative/docs/Images/placeholder-topic.jpg');
+  background-size: cover;
+}

@@ -11,17 +11,15 @@ import Cart from '../../components/Cart';
 import { API_KEY, API_URL } from '../../config';
 
 // Types
-import { IGoods } from '../../types/IGoods';
-
-interface IOrder extends IGoods {
-  quantity: number;
-}
+import { IGoods, IOrder } from '../../types/IGoods';
+import BasketList from '../../components/Basket/BasketList';
 
 const Shop = () => {
   const [goods, setGoods] = useState<IGoods[]>([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState<IOrder[]>([]);
-  
+  const [isBasketOpen, setBasketOpen] = useState(false);
+
   const addToBastek = (item: Partial<IOrder>) => {
     const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);
 
@@ -43,6 +41,8 @@ const Shop = () => {
     }
   };
 
+  const handleBasketOpen = () => setBasketOpen(!isBasketOpen);
+
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(API_URL, {
@@ -60,12 +60,9 @@ const Shop = () => {
 
   return (
     <main className='container shop-content'>
-      <Cart quantity={order.length} />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <GoodsList goods={goods} addToBastek={addToBastek} />
-      )}
+      <Cart quantity={order.length} handleBasketOpen={handleBasketOpen} />
+      {loading ? <Spinner /> : <GoodsList goods={goods} addToBastek={addToBastek} />}
+      {isBasketOpen && <BasketList order={order} handleBasketOpen={handleBasketOpen} />}
     </main>
   );
 };
