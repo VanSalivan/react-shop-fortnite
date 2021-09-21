@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/VanSalivan/React__SHOP/static/css/main.da3a719b.chunk.css",
+    "main.js": "/VanSalivan/React__SHOP/static/js/main.b240973f.chunk.js",
+    "main.js.map": "/VanSalivan/React__SHOP/static/js/main.b240973f.chunk.js.map",
+    "runtime-main.js": "/VanSalivan/React__SHOP/static/js/runtime-main.9073a7e0.js",
+    "runtime-main.js.map": "/VanSalivan/React__SHOP/static/js/runtime-main.9073a7e0.js.map",
+    "static/js/2.5bb244ca.chunk.js": "/VanSalivan/React__SHOP/static/js/2.5bb244ca.chunk.js",
+    "static/js/2.5bb244ca.chunk.js.map": "/VanSalivan/React__SHOP/static/js/2.5bb244ca.chunk.js.map",
+    "index.html": "/VanSalivan/React__SHOP/index.html",
+    "static/css/main.da3a719b.chunk.css.map": "/VanSalivan/React__SHOP/static/css/main.da3a719b.chunk.css.map",
+    "static/js/2.5bb244ca.chunk.js.LICENSE.txt": "/VanSalivan/React__SHOP/static/js/2.5bb244ca.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9073a7e0.js",
+    "static/js/2.5bb244ca.chunk.js",
+    "static/css/main.da3a719b.chunk.css",
+    "static/js/main.b240973f.chunk.js"
+  ]
+}
