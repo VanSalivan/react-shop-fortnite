@@ -14,12 +14,14 @@ import { API_KEY, API_URL } from '../../config';
 import { IGoods, IOrder } from '../../types/IGoods';
 import BasketList from '../../components/Basket/BasketList';
 import Modal from '../../services/Modal';
+import Alert from '../../components/Alert';
 
 const Shop = () => {
   const [goods, setGoods] = useState<IGoods[]>([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState<IOrder[]>([]);
   const [isBasketOpen, setBasketOpen] = useState(false);
+  const [alertName, setAlertName] = useState('')
 
   const addToBastek = (item: Partial<IOrder>) => {
     const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);
@@ -40,9 +42,13 @@ const Shop = () => {
 
       setOrder(newOrder);
     }
+
+    setAlertName(item.name!)
   };
 
   const handleBasketOpen = () => setBasketOpen(!isBasketOpen);
+
+  const closeAlert = () => setAlertName('');
 
   const removeFromBasket = (itemId: string | undefined) => {
     const newOrder = order.filter((item) => item.id !== itemId);
@@ -104,6 +110,11 @@ const Shop = () => {
             inc={incQuantity}
             dec={decQuantity}
           />
+        </Modal>
+      }
+      {alertName &&
+        <Modal>
+          <Alert name={alertName} closeAlert={closeAlert} />
         </Modal>}
     </main>
   );

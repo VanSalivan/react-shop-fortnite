@@ -1,0 +1,35 @@
+.alert {
+  top: 10.5%;
+  right: 7%;
+  position: fixed;
+  padding: 10px 25px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border-radius: 5px;
+  animation: fade-in 250ms ease-in-out;
+}
+
+@media (max-width:1024px) {
+  .alert {
+    right: 14%;
+  }
+}
+
+@media (max-width:767px) {
+  .alert {
+    top: 0.5rem;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0rem);
+
+  }
+}

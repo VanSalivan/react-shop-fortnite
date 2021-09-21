@@ -37,6 +37,7 @@ const BasketList = ({ order, handleBasketOpen, removeFromBasket, inc, dec }: IBa
         <li className='collection-item'>Корзина пуста</li>
       )}
       <li className='collection-item active'>Общая стоимость: {totalPrice} руб</li>
+      <li className='collection-item active'><button className='btn-small'>Оформить</button></li>
     </ul>
   );
 };
