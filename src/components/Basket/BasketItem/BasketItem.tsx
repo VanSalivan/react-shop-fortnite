@@ -1,31 +1,32 @@
 // Dependencies
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 // Externals
 import './BasketItem.css';
 
+//Redux
+import { decQuantity, incQuantity, removeFromBasket } from '../../../store/basketSlice';
+
 // Types
 import { IOrder } from '../../../types/IGoods';
 
-interface BasketItemProps extends IOrder {
-  removeFromBasket: (id?: string) => void;
-  inc: (itemId: string) => void;
-  dec: (itemId: string) => void;
-}
 
-const BasketItem = ({ id, name, price, quantity, removeFromBasket, inc, dec }: BasketItemProps) => {
+const BasketItem = ({ id, name, price, quantity}: IOrder) => {
+  const dispatch = useDispatch();
+
   return (
     <li className='collection-item'>
       {name}
-      <i className='material-icons basket-quantity' onClick={() => dec(id!)}>
+      <i className='material-icons basket-quantity' onClick={() => dispatch(decQuantity(id))}>
         remove
       </i>
       x{quantity}
-      <i className='material-icons basket-quantity' onClick={() => inc(id!)}>
+      <i className='material-icons basket-quantity' onClick={() => dispatch(incQuantity(id))}>
         add
       </i>
       = {price! * quantity} руб
-      <span className='secondary-content' onClick={() => removeFromBasket(id)}>
+      <span className='secondary-content' onClick={() => dispatch(removeFromBasket(id))}>
         <i className='material-icons'>close</i>
       </span>
     </li>

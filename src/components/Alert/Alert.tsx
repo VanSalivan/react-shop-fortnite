@@ -1,20 +1,23 @@
 // Dependencies
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Redux
+import { removeAlertName } from '../../store/alertSlice';
+import { RootState } from '../../types/redux';
 
 // Externals
 import './Alert.css';
 
-interface IAlertProps {
-  name: string;
-  closeAlert: () => void;
-}
+const Alert = () => {
+  const { alertName: name } = useSelector((state: RootState) => state.alertMessage);
+  const dispatch = useDispatch();
 
-const Alert = ({ name = '', closeAlert }: IAlertProps) => {
   useEffect(() => {
-    const timerid = setTimeout(closeAlert, 3000);
+    setTimeout(() => {
+      dispatch(removeAlertName());
+    }, 3000);
 
-    return () => clearTimeout(timerid);
-    // eslint-disable-next-line
   }, [name]);
 
   return (

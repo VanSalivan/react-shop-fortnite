@@ -3,7 +3,7 @@
 
 ![Screenshot](example.png)
 
-Технологии: `React / Typescript / CSS / Materialize`
+Технологии: `React / Redux Toolkit / Typescript / CSS / Materialize`
 
 ### Функционал
 1) Отображение данных с реального API

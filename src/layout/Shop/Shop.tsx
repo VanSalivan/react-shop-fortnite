@@ -1,121 +1,49 @@
 // Dependencies
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Redux
+import { fetchGoodsList } from '../../store/goodsSlice';
+import { showTheBasket } from '../../store/basketSlice';
+import { RootState } from '../../types/redux';
 
 // Externals
 import './Shop.css';
 import Spinner from '../../components/Spinner';
 import GoodsList from '../../components/GoodsList';
-import Cart from '../../components/Cart';
-
-// API
-import { API_KEY, API_URL } from '../../config';
-
-// Types
-import { IGoods, IOrder } from '../../types/IGoods';
 import BasketList from '../../components/Basket/BasketList';
+import Cart from '../../components/Cart';
 import Modal from '../../services/Modal';
 import Alert from '../../components/Alert';
 
+
+
 const Shop = () => {
-  const [goods, setGoods] = useState<IGoods[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState<IOrder[]>([]);
-  const [isBasketOpen, setBasketOpen] = useState(false);
-  const [alertName, setAlertName] = useState('')
-
-  const addToBastek = (item: Partial<IOrder>) => {
-    const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);
-
-    if (itemIndex < 0) {
-      // Условие первого элемента
-      const newItem = { ...item, quantity: 1 };
-      setOrder([...order, newItem]);
-    } else {
-      // Если элемент уже есть в корзине
-      const newOrder = order.map((orderItem, index) => {
-        if (index === itemIndex) {
-          return { ...orderItem, quantity: orderItem.quantity + 1 };
-        } else {
-          return orderItem;
-        }
-      });
-
-      setOrder(newOrder);
-    }
-
-    setAlertName(item.name!)
-  };
-
-  const handleBasketOpen = () => setBasketOpen(!isBasketOpen);
-
-  const closeAlert = () => setAlertName('');
-
-  const removeFromBasket = (itemId: string | undefined) => {
-    const newOrder = order.filter((item) => item.id !== itemId);
-    setOrder(newOrder);
-  }
-
-  const incQuantity = (itemId: string) => {
-    const newOrder = order.map((el) => {
-      if (el.id === itemId) {
-        const newQuantity = el.quantity + 1;
-        return { ...el, quantity: newQuantity }
-      } else {
-        return el;
-      }
-    });
-    setOrder(newOrder);
-  }
-
-  const decQuantity = (itemId: string) => {
-    const newOrder = order.map((el) => {
-      if (el.id === itemId) {
-        const newQuantity = el.quantity - 1;
-        return {
-          ...el,
-          quantity: newQuantity >= 0 ? newQuantity : 0
-        }
-      } else {
-        return el;
-      }
-    });
-    setOrder(newOrder);
-  }
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state: RootState) => state.goods);
+  const { alertName } = useSelector((state: RootState) => state.alertMessage);
+  const { order, isBasketOpen } = useSelector((state: RootState) => state.basket);
+ 
+  const handleBasketOpen = () => dispatch(showTheBasket())
 
   useEffect(() => {
-    const getData = async () => {
-      const response = await fetch(API_URL, {
-        headers: {
-          Authorization: API_KEY,
-        },
-      });
-      const body = await response.json();
-
-      body && setGoods(body.featured);
-      setLoading(false);
-    };
-    getData();
+    dispatch(fetchGoodsList());
   }, []);
 
   return (
     <main className='container shop-content'>
       <Cart quantity={order.length} handleBasketOpen={handleBasketOpen} />
-      {loading ? <Spinner /> : <GoodsList goods={goods} addToBastek={addToBastek} />}
-      {isBasketOpen &&
+      { loading ? <Spinner /> : <GoodsList /> }
+      { isBasketOpen && (
         <Modal>
-          <BasketList
-            order={order}
-            handleBasketOpen={handleBasketOpen}
-            removeFromBasket={removeFromBasket}
-            inc={incQuantity}
-            dec={decQuantity}
-          />
+          <BasketList order={order} handleBasketOpen={handleBasketOpen} />
         </Modal>
-      }
-      {alertName &&
+      )}
+       {alertName && (
         <Modal>
-          <Alert name={alertName} closeAlert={closeAlert} />
-        </Modal>}
+          <Alert />
+        </Modal>
+      )}
     </main>
   );
 };

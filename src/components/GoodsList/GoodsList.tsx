@@ -1,28 +1,25 @@
 // Dependencies
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 // Externals
 import './GoodsList.css';
 import GoodsItem from '../GoodsItem';
 
 // Types
-import { IGoods } from '../../types/IGoods';
 
-interface IGoodsProps {
-  goods: IGoods[];
-  addToBastek: (item: IGoods) => void;
-}
+import { RootState } from '../../types/redux';
 
-const GoodsList = ({ goods = [], addToBastek }: IGoodsProps) => {
+
+const GoodsList = () => {
+  const { goods } = useSelector((state:RootState) => state.goods);
   if (!goods.length) {
     return <h3> Ничего нет </h3>;
   }
 
   return (
     <div className='goods'>
-      {goods.map((item) => (
-        <GoodsItem key={item.id} {...item} addToBastek={addToBastek} />
-      ))}
+      {goods.map((item) => <GoodsItem key={item.id} {...item} />)}
     </div>
   );
 };

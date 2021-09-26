@@ -9,3 +9,11 @@ export interface IGoods {
 export interface IOrder extends IGoods {
   quantity: number;
 }
+
+export interface State {
+  goods: IGoods[];
+  loading: boolean;
+  order: IOrder[];
+  isBasketShow: boolean;
+  alertName: string;
+}
