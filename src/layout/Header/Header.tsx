@@ -11,7 +11,7 @@ const Header:React.FC = () => {
       <div className='nav-wrapper'>
         <a href='/' className='brand-logo'>Fortnite Shop</a>
         <ul id='nav-mobile' className='right hide-on-med-and-down'>
-          <li><a target="_blank" rel="noreferrer" href='https://github.com/VanSalivan/React__SHOP'>Repositories</a></li>
+          <li><a target="_blank" rel="noreferrer" href='https://github.com/VanSalivan/react-shop-fortnite'>Repositories</a></li>
         </ul>
       </div>
     </nav>
